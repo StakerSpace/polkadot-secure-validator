@@ -17,9 +17,6 @@ ExecStart=/usr/local/bin/polkadot \
   {% endif %}
   --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
   --rpc-methods=Unsafe \
-  {% if hostvars[inventory_hostname].polkadotAdditionalCustomFlags is defined and hostvars[inventory_hostname].polkadotAdditionalCustomFlags|length %}
-  {{ hostvars[inventory_hostname].polkadotAdditionalCustomFlags }} \
-  {% endif %}
   {% if hostvars[inventory_hostname].polkadot_additional_common_flags is defined and hostvars[inventory_hostname].polkadot_additional_common_flags|length %}
   {{ hostvars[inventory_hostname].polkadot_additional_common_flags }} \
   {% endif %}

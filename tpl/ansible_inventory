@@ -7,7 +7,6 @@ ansible_user={{ this.sshUser }}
 telemetryUrl={{ ../validatorTelemetryUrl }}
 loggingFilter='{{{ ../validatorLoggingFilter }}}'
 nodeName={{ this.nodeName }}
-polkadotAdditionalCustomFlags={{this.polkadotAdditionalCustomFlags}}
 
 {{/each}}
 
