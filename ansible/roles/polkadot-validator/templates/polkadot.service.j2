@@ -74,7 +74,6 @@ ExecStart=/usr/local/bin/polkadot \
   {# --- #}
   --validator \
   --chain={{ chain }} \
-  --listen-addr=/ip4/127.0.0.1/tcp/{{ p2p_port }} \
   --rpc-methods=Unsafe
 
 Restart=always
