@@ -1,8 +1,30 @@
-- name: Install 7z  
-  apt:
-    name: p7zip-full
-    state: present
-    update_cache: yes
+- name: create 7z download dir
+  file:
+    path: /root/7z
+    state: directory
+    mode: '0755'
+
+- name: download 7z
+  get_url:
+    url: '{{ sevenzip_binary_url }}'
+    dest: /root/7z/archive.tar.gz
+    mode: '0700'
+
+- name: unarchive 7z
+  unarchive:
+    src: /root/7z/archive.tar.gz
+    remote_src: yes
+    dest: /root/7z
+
+- name: copy 7zz binary
+  shell: |
+    set -o pipefail
+    cp /root/7z/7zz /usr/local/bin/
+    chmod 755 /usr/local/bin/7zz
+    chown root:root /usr/local/bin/7zz
+  args:
+    executable: /bin/bash
+  changed_when: False
 
 - name: db_dest_path as fact
   set_fact:
@@ -33,7 +55,7 @@
     set -o pipefail
     cd {{ db_dest_path }}
     mv db db.back
-    7z x db.new.7z
+    7zz x db.new.7z
     rm db.new.7z
     chown -R polkadot:polkadot db/
   args:
